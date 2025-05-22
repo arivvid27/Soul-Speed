@@ -4,16 +4,16 @@ Soul *speed* is an enchantment in minecraft, and we figured: Why not make it a p
 
 So w**e** made it a potion. 
 
-#### Functionality
+## Functionality
 
 Theres 3 tiers, regular, long-lasting and strong. 
 
-### images
+## images
 
 Crafting recipe images and item images will be inserted here later. 
 
 
-#### design choices
+## design choices
 Theres differet bits of purple, and different colours in the bottle to indicate its strength, ingredients, and tier. 
 More purple, more speciality. 
 
