@@ -28,4 +28,6 @@ Fabric
 Minecraft 1.21.4
 
 **To install**,
+
+
 Just paste it into your mods folder, usually situated in `%appdata%\.minecraft\mods`
