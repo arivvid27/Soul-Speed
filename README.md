@@ -24,6 +24,7 @@ Highest is the strong Soul Speed potion, lowest is the regular.
 ## Requirements:
 
 Fabric
+
 Minecraft 1.21.4
 
 **To install**,
