@@ -1,41 +1,31 @@
 {
 	"schemaVersion": 1,
-	"id": "soul-speed",
+	"id": "soul_speed_potion",
 	"version": "${version}",
-	"name": "Soul Speed",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Soul Speed Potion",
+	"description": "Adds a Soul Speed potion to Minecraft",
 	"authors": [
-		"Me!"
+		"Wolfentech"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/arivvid27/Soul-Speed"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/soul-speed/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"com.soulspeed113.SoulSpeed"
-		],
-		"client": [
-			"com.soulspeed113.SoulSpeedClient"
 		]
 	},
 	"mixins": [
-		"soul-speed.mixins.json",
-		{
-			"config": "soul-speed.client.mixins.json",
-			"environment": "client"
-		}
+		"soul_speed_potion.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.16.14",
 		"minecraft": "~1.21.4",
 		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }
