@@ -1,0 +1,14 @@
+{
+    "item.minecraft.potion.effect.soul_speed": "Potion of Soul Speed",
+    "item.minecraft.splash_potion.effect.soul_speed": "Splash Potion of Soul Speed",
+    "item.minecraft.lingering_potion.effect.soul_speed": "Lingering Potion of Soul Speed",
+    "item.minecraft.tipped_arrow.effect.soul_speed": "Arrow of Soul Speed",
+    "item.minecraft.potion.effect.soul_speed_long": "Soul Speed",
+    "item.minecraft.splash_potion.effect.soul_speed_long": "Splash Soul Speed",
+    "item.minecraft.lingering_potion.effect.soul_speed_long": "Lingering Soul Speed",
+    "item.minecraft.tipped_arrow.effect.soul_speed_long": "Lingering Arrow of Soul Speed",
+    "item.minecraft.potion.effect.strong_soul_speed": "Potion of Soul Speed",
+    "item.minecraft.splash_potion.effect.strong_soul_speed": "Splash Potion of Soul Speed",
+    "item.minecraft.lingering_potion.effect.strong_soul_speed": "Lingering Potion of Soul Speed",
+    "item.minecraft.tipped_arrow.effect.strong_soul_speed": "Arrow of Soul Speed"
+}
