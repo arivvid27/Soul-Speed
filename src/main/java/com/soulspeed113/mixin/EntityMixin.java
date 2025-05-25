@@ -11,6 +11,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
@@ -18,31 +19,30 @@ import net.minecraft.util.math.Vec3d;
 
 @Mixin(Entity.class)
 public class EntityMixin {
-	@Inject(method = "applyMovementInput", at = @At("HEAD"))
+	@Inject(method = "applyMovementEffects", at = @At("HEAD"))
 	private void applySoulSpeedFromPotion(Vec3d movementInput, float slipperiness, CallbackInfo ci) {
 		Entity entity = (Entity)(Object)this;
 
 		if (entity instanceof LivingEntity livingEntity) {
-			// Has Effect?
 			int soulSpeedLevel = 0;
-			if (livingEntity.hasStatusEffect((RegistryEntry<StatusEffect>) ModEffects.SOUL_SPEED)) {
-                soulSpeedLevel = livingEntity.getStatusEffect((RegistryEntry<StatusEffect>) ModEffects.SOUL_SPEED).getAmplifier() + 1;
-            }
-			// Is on Soul Sand?
-
+			StatusEffectInstance effect = livingEntity.getStatusEffect((RegistryEntry<StatusEffect>) ModEffects.SOUL_SPEED);
+			if (effect != null) {
+				soulSpeedLevel = effect.getAmplifier();
+				}
+			
 			if (soulSpeedLevel > 0) {
 				BlockPos pos = entity.getBlockPos();
 				BlockState blockState = entity.getWorld().getBlockState(pos);
 
 				if (blockState.isIn(BlockTags.SOUL_SPEED_BLOCKS)) {
-
 					float multiplier = 0.05F * soulSpeedLevel;
 
 					Vec3d velocity = entity.getVelocity();
 					entity.setVelocity(velocity.x * (1.0 + multiplier),
-							velocity.y,
-							velocity.z * (1.0 + multiplier));
+					velocity.y,
+					velocity.z * (1.0 + multiplier));
 
+					
 					if (entity.getRandom().nextFloat() < 0.2F) {
 						entity.getWorld().addParticle(
 							net.minecraft.particle.ParticleTypes.SOUL,
@@ -52,6 +52,7 @@ public class EntityMixin {
 							0.0, 0.0, 0.0
 						);
 					}
+
 				}
 			}
 		}

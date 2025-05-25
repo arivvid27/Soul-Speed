@@ -1,7 +1,6 @@
-package main.java.com.soulspeed113.effect;
+package com.soulspeed113.effect;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
@@ -14,17 +13,15 @@ public class SoulSpeedEffect extends StatusEffect {
     }
 
     @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+    public boolean canApplyUpdateEffect(int duraction, int amplifier) {
         return true;
     }
 
-    @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         BlockPos pos = entity.getBlockPos();
-        BlockState blockState = entity.getWorld.getBlockState(pos);
+        BlockState blockState = entity.getWorld().getBlockState(pos);
 
         if (blockState.isIn(BlockTags.SOUL_SPEED_BLOCKS)) {
-            // Literally just if I want to add more
+            // do i want to add more
         }
-    }
-}
+    }}
