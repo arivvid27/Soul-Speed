@@ -15,21 +15,20 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 
 @Mixin(Entity.class)
 public class EntityMixin {
 	@SuppressWarnings("unchecked")
-	@Inject(method = "applyMovementEffects", at = @At("HEAD"))
-	private void applySoulSpeedFromPotion(Vec3d movementInput, float slipperiness, CallbackInfo ci) {
+	@Inject(method = "tick", at = @At("HEAD"))
+	private void applySoulSpeedFromPotion(CallbackInfo ci) {
 		Entity entity = (Entity)(Object)this;
 
 		if (entity instanceof LivingEntity livingEntity) {
 			int soulSpeedLevel = 0;
 			StatusEffectInstance effect = livingEntity.getStatusEffect((RegistryEntry<StatusEffect>) ModEffects.SOUL_SPEED);
 			if (effect != null) {
-				soulSpeedLevel = effect.getAmplifier();
-				}
+				soulSpeedLevel = effect.getAmplifier() + 1; // Amplifier is 0-based, so add 1
+			}
 			
 			if (soulSpeedLevel > 0) {
 				BlockPos pos = entity.getBlockPos();
@@ -38,22 +37,24 @@ public class EntityMixin {
 				if (blockState.isIn(BlockTags.SOUL_SPEED_BLOCKS)) {
 					float multiplier = 0.05F * soulSpeedLevel;
 
-					Vec3d velocity = entity.getVelocity();
-					entity.setVelocity(velocity.x * (1.0 + multiplier),
-					velocity.y,
-					velocity.z * (1.0 + multiplier));
-
-					
-					if (entity.getRandom().nextFloat() < 0.2F) {
-						entity.getWorld().addParticle(
-							net.minecraft.particle.ParticleTypes.SOUL,
-							entity.getX(),
-							entity.getY(),
-							entity.getZ(),
-							0.0, 0.0, 0.0
+					if (entity.isOnGround() && (entity.getVelocity().x != 0 || entity.getVelocity().z != 0)) {
+						entity.setVelocity(
+							entity.getVelocity().x * (1.0 + multiplier),
+							entity.getVelocity().y,
+							entity.getVelocity().z * (1.0 + multiplier)
 						);
-					}
 
+						// Add soul particles occasionally
+						if (entity.getRandom().nextFloat() < 0.2F) {
+							entity.getWorld().addParticle(
+								net.minecraft.particle.ParticleTypes.SOUL,
+								entity.getX(),
+								entity.getY() + 0.1,
+								entity.getZ(),
+								0.0, 0.1, 0.0
+							);
+						}
+					}
 				}
 			}
 		}

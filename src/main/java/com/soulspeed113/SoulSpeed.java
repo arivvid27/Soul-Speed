@@ -3,7 +3,7 @@ package com.soulspeed113;
 import com.soulspeed113.effect.ModEffects;
 import com.soulspeed113.item.ModItems;
 import com.soulspeed113.potion.ModPotions;
-import com.soulspeed113.potion.PotionRecipes;
+// Remove the import for PotionRecipes since it's commented out
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,8 @@ public class SoulSpeed implements ModInitializer {
 		ModEffects.registerEffects();
 		ModPotions.registerPotions();
 		ModItems.registerItems();
-		PotionRecipes.registerPotionRecipe();
+		// Comment out the PotionRecipes call since the class is commented out
+		// PotionRecipes.registerPotionRecipe();
 
 		LOGGER.info("Initialization of SoulSpeed complete");
 	}
