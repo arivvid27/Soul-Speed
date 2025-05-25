@@ -21,38 +21,41 @@ public class EntityMixin {
 	private void applySoulSpeedFromPotion(CallbackInfo ci) {
 		Entity entity = (Entity)(Object)this;
 
-		if (entity instanceof LivingEntity livingEntity) {
-			// Get the registry entry for our effect
-			var soulSpeedEntry = Registries.STATUS_EFFECT.getEntry(ModEffects.SOUL_SPEED);
-			
-			StatusEffectInstance effect = livingEntity.getStatusEffect(soulSpeedEntry);
-			if (effect != null) {
-				int soulSpeedLevel = effect.getAmplifier() + 1; // Amplifier is 0-based, so add 1
-				
-				BlockPos pos = entity.getBlockPos();
-				BlockState blockState = entity.getWorld().getBlockState(pos);
+		if (!(entity instanceof LivingEntity livingEntity)) {
+			return;
+		}
 
-				if (blockState.isIn(BlockTags.SOUL_SPEED_BLOCKS)) {
-					float multiplier = 0.05F * soulSpeedLevel;
+		// Check if we have the soul speed effect
+		var soulSpeedEntry = Registries.STATUS_EFFECT.getEntry(ModEffects.SOUL_SPEED);
+		StatusEffectInstance effect = livingEntity.getStatusEffect(soulSpeedEntry);
+		
+		if (effect == null) {
+			return;
+		}
 
-					if (entity.isOnGround() && (entity.getVelocity().x != 0 || entity.getVelocity().z != 0)) {
-						entity.setVelocity(
-							entity.getVelocity().x * (1.0 + multiplier),
-							entity.getVelocity().y,
-							entity.getVelocity().z * (1.0 + multiplier)
-						);
+		int soulSpeedLevel = effect.getAmplifier() + 1;
+		BlockPos pos = entity.getBlockPos();
+		BlockState blockState = entity.getWorld().getBlockState(pos);
 
-						// Add soul particles occasionally
-						if (entity.getRandom().nextFloat() < 0.2F) {
-							entity.getWorld().addParticle(
-								net.minecraft.particle.ParticleTypes.SOUL,
-								entity.getX(),
-								entity.getY() + 0.1,
-								entity.getZ(),
-								0.0, 0.1, 0.0
-							);
-						}
-					}
+		if (blockState.isIn(BlockTags.SOUL_SPEED_BLOCKS)) {
+			float multiplier = 0.05F * soulSpeedLevel;
+
+			if (entity.isOnGround() && (Math.abs(entity.getVelocity().x) > 0.01 || Math.abs(entity.getVelocity().z) > 0.01)) {
+				entity.setVelocity(
+					entity.getVelocity().x * (1.0 + multiplier),
+					entity.getVelocity().y,
+					entity.getVelocity().z * (1.0 + multiplier)
+				);
+
+				// Add soul particles occasionally
+				if (entity.getRandom().nextFloat() < 0.2F) {
+					entity.getWorld().addParticle(
+						net.minecraft.particle.ParticleTypes.SOUL,
+						entity.getX(),
+						entity.getY() + 0.1,
+						entity.getZ(),
+						0.0, 0.1, 0.0
+					);
 				}
 			}
 		}
