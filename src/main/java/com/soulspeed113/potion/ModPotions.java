@@ -11,24 +11,24 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
 public class ModPotions {
-    public static Potion SOUL_SPEED;
-    public static Potion LONG_SOUL_SPEED;
-    public static Potion STRONG_SOUL_SPEED;
+    public static RegistryEntry<Potion> SOUL_SPEED;
+    public static RegistryEntry<Potion> LONG_SOUL_SPEED;
+    public static RegistryEntry<Potion> STRONG_SOUL_SPEED;
 
     public static void registerPotions() {
-        SOUL_SPEED = Registry.register(
+        SOUL_SPEED = Registry.registerReference(
             Registries.POTION,
             Identifier.of(SoulSpeed.MOD_ID, "soul_speed"),
             new Potion("soul_speed", new StatusEffectInstance(RegistryEntry.of(ModEffects.SOUL_SPEED), 3600, 0))
         );
 
-        LONG_SOUL_SPEED = Registry.register(
+        LONG_SOUL_SPEED = Registry.registerReference(
             Registries.POTION,
             Identifier.of(SoulSpeed.MOD_ID, "long_soul_speed"),
             new Potion("long_soul_speed", new StatusEffectInstance(RegistryEntry.of(ModEffects.SOUL_SPEED), 9600, 0))
         );
 
-        STRONG_SOUL_SPEED = Registry.register(
+        STRONG_SOUL_SPEED = Registry.registerReference(
             Registries.POTION,
             Identifier.of(SoulSpeed.MOD_ID, "strong_soul_speed"),
             new Potion("strong_soul_speed", new StatusEffectInstance(RegistryEntry.of(ModEffects.SOUL_SPEED), 1800, 1))
