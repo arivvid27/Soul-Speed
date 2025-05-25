@@ -10,27 +10,25 @@ import com.soulspeed113.effect.ModEffects;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 
 @Mixin(Entity.class)
 public class EntityMixin {
-	@SuppressWarnings("unchecked")
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void applySoulSpeedFromPotion(CallbackInfo ci) {
 		Entity entity = (Entity)(Object)this;
 
 		if (entity instanceof LivingEntity livingEntity) {
-			int soulSpeedLevel = 0;
-			StatusEffectInstance effect = livingEntity.getStatusEffect((RegistryEntry<StatusEffect>) ModEffects.SOUL_SPEED);
-			if (effect != null) {
-				soulSpeedLevel = effect.getAmplifier() + 1; // Amplifier is 0-based, so add 1
-			}
+			// Get the registry entry for our effect
+			var soulSpeedEntry = Registries.STATUS_EFFECT.getEntry(ModEffects.SOUL_SPEED);
 			
-			if (soulSpeedLevel > 0) {
+			StatusEffectInstance effect = livingEntity.getStatusEffect(soulSpeedEntry);
+			if (effect != null) {
+				int soulSpeedLevel = effect.getAmplifier() + 1; // Amplifier is 0-based, so add 1
+				
 				BlockPos pos = entity.getBlockPos();
 				BlockState blockState = entity.getWorld().getBlockState(pos);
 
