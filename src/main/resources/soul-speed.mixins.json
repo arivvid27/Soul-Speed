@@ -3,10 +3,7 @@
 	"minVersion": "0.8",
 	"package": "com.soulspeed113.mixin",
 	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"EntityMixin",
-		"LootTableMixin"
-	],
+	"mixins": [],
 	"client": [],
 	"injectors": {
 		"defaultRequire": 1
