@@ -6,19 +6,15 @@ import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-// import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
-// import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-// import java.util.List;
-
 @Mixin(PiglinEntity.class)
 public class PiglinBarterMixin {
-    @Inject(method = "getBarteredItem", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getBarterItem", at = @At("RETURN"), cancellable = true)
     private void addSoulSpeedPotions(LootContext lootContext, CallbackInfoReturnable<ItemStack> cir) {
         if (lootContext.getRandom().nextFloat() < 0.05F) {
             ItemStack soulSpeedPotion = new ItemStack(Items.POTION);
