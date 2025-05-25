@@ -4,6 +4,7 @@
 	"package": "com.soulspeed113.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"EntityMixin",
 		"PiglinBarterMixin",
 		"LootTableMixin"
 	],
