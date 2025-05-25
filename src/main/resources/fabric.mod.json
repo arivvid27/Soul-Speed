@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "soul_speed_potion",
-	"version": "${version}",
+	"version": "1.0.1",
 	"name": "Soul Speed Potion",
 	"description": "Adds a Soul Speed potion to Minecraft",
 	"authors": [
@@ -17,10 +17,14 @@
 	"entrypoints": {
 		"main": [
 			"com.soulspeed113.SoulSpeed"
+		],
+		"client": [
+			"com.soulspeed113.SoulSpeedClient"
 		]
 	},
 	"mixins": [
-		"soul_speed_potion.mixins.json"
+		"soul-speed.mixins.json",
+		"soul-speed.client.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.16.14",
