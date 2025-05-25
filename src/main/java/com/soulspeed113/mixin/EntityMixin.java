@@ -19,6 +19,7 @@ import net.minecraft.util.math.Vec3d;
 
 @Mixin(Entity.class)
 public class EntityMixin {
+	@SuppressWarnings("unchecked")
 	@Inject(method = "applyMovementEffects", at = @At("HEAD"))
 	private void applySoulSpeedFromPotion(Vec3d movementInput, float slipperiness, CallbackInfo ci) {
 		Entity entity = (Entity)(Object)this;
